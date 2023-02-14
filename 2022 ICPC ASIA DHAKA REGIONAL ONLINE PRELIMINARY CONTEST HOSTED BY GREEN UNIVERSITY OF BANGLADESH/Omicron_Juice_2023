@@ -1,0 +1,65 @@
+import java.util.Scanner;
+
+public class Omicron_Juice_2023 {
+	
+	static Scanner in = new Scanner(System.in);
+	
+	static int testCases;
+	static long A, B, C, K;
+	
+	static void solve() {
+		
+		if(A == B && B == C) {
+			
+			System.out.println("Peaceful");
+			
+		} else {
+			
+			if(A < K && B < K && C < K && (A != B || B != C || A != C)) {
+				
+				System.out.println("Fight");
+				
+			} else {
+				
+				long per_glass = (A + B + C) / 3L;
+				
+				boolean a = Math.abs(A - per_glass) % K == 0L;
+				boolean b = Math.abs(A - per_glass) % K == 0L;
+				boolean c = Math.abs(A - per_glass) % K == 0L;
+				
+				if(a && b && c) {
+					
+					System.out.println("Peaceful");
+					
+				} else {
+					
+					System.out.println("Fight");
+					
+				}
+				
+			}
+			
+		}	
+		
+	}
+	
+	public static void main(String [] priya) {
+		
+		testCases = in.nextInt();
+		
+		for(int t = 0; t < testCases; ++t) {
+			
+			A = in.nextLong();
+			B = in.nextLong();
+			C = in.nextLong();
+			K = in.nextLong();
+			
+			System.out.print("Case " + (t + 1) + ": ");
+			
+			solve();
+			
+		}
+		
+	}
+	
+}
