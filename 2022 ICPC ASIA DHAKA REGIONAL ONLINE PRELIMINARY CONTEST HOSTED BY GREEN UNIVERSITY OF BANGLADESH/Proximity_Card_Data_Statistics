@@ -1,0 +1,116 @@
+import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.PriorityQueue;
+
+public class Proximity_Card_Data_Statistics {
+	
+	static Scanner in = new Scanner(System.in);
+	
+	static int testCases, n;
+	
+	static String email[], date[], born[], grade[];
+	
+	static void solve() {
+		
+		Map<String, person> map = new HashMap<>();
+		
+		for(int i = 0; i < testCases; ++i) {
+			
+			map.put(email[i], new person(date[i], email[i], born[i], grade[i]));
+			
+		}
+		
+		Map<String, Integer> blood_grp = new HashMap<>(); 
+		
+		blood_grp.put("A+", 0);
+		blood_grp.put("A-", 0);
+		blood_grp.put("AB+", 0);
+		blood_grp.put("AB-", 0);
+		blood_grp.put("B+", 0);
+		blood_grp.put("B-", 0);
+		blood_grp.put("O+", 0);
+		blood_grp.put("O-", 0);
+		
+		Map<String, Integer> born_grp = new HashMap<>();
+		
+		for(String i : map.keySet()) {
+			
+			person p = map.get(i);
+			
+			String s[] = p.born.split("/");
+			
+			blood_grp.put(p.blood, blood_grp.get(p.blood) + 1);
+			
+			born_grp.put(s[s.length - 1].trim(), born_grp.getOrDefault(s[s.length - 1].trim(), 0) + 1);
+			
+		}
+		
+		System.out.println("A+ " + blood_grp.get("A+"));
+		System.out.println("A- " + blood_grp.get("A-"));
+		System.out.println("AB+ " + blood_grp.get("AB+"));
+		System.out.println("AB- " + blood_grp.get("AB-"));
+		System.out.println("B+ " + blood_grp.get("B+"));
+		System.out.println("B- " + blood_grp.get("B-"));
+		System.out.println("O+ " + blood_grp.get("O+"));
+		System.out.println("O- " + blood_grp.get("O-"));
+		
+		PriorityQueue<Integer> pq = new PriorityQueue<>();
+		
+		for(String i : born_grp.keySet()) {
+			
+			pq.add(Integer.parseInt(i));
+			
+		}
+		
+		while(!pq.isEmpty()) {
+			
+			int year = pq.poll();
+			
+			System.out.println(year + " " + born_grp.get(String.valueOf(year)));
+			
+		}
+		
+	}
+	
+	public static void main(String [] priya) {
+		
+		testCases = in.nextInt();
+		
+		email = new String[testCases];
+		
+		born = new String[testCases];
+		
+		date = new String[testCases];
+		
+		grade = new String[testCases];
+		
+		for(int i = 0; i < testCases; ++i) {
+			
+			date[i] = in.next();
+			email[i] = in.next();
+			born[i] = in.next();
+			grade[i] = in.next();
+			
+		}
+		
+		solve();
+		
+	}
+	
+	static class person {
+		
+		String date, born, blood, email;
+		
+		public person(String date, String email, String born, String blood) {
+			
+			this.date = date;
+			this.email = email;
+			this.born = born;
+			this.blood = blood;
+			
+		}
+		
+	}
+	
+}
